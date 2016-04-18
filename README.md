@@ -1,1 +1,1 @@
-# shiftBuddyAndroid
+# Android code for ShiftBuddy
