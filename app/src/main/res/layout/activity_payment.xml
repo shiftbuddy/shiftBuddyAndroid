@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/payment_activity_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -78,7 +79,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="30dp"
                 android:textSize="15dp"
-                android:text="SEND"
+                android:text="HELP"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"/>
 
@@ -111,6 +112,7 @@
             android:background="@drawable/rectangle_grey_with_light">
 
             <EditText
+                android:id="@+id/address_from"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="From Address"
@@ -131,6 +133,7 @@
             android:background="@drawable/rectangle_grey_with_light">
 
             <EditText
+                android:id="@+id/address_to"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="To Address"
@@ -181,10 +184,10 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/send_package"
             android:layout_marginTop="15dp"
             android:layout_width="fill_parent"
             android:layout_height="50dp"
-            android:id="@+id/send_package"
             android:layout_below="@+id/payment_gateway"
             android:orientation="horizontal"
             android:background="@drawable/rectangle_darkgrey_border">
