@@ -15,6 +15,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SelectionActivity"
+            android:label="@string/title_activity_selection"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity android:name=".ShipmentActivity" >
+        </activity>
+        <activity
+            android:name=".PaymentActivity"
+            android:label="@string/title_activity_payment"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>
