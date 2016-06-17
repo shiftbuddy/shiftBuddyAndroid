@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/selection_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,6 +9,7 @@
     tools:context="com.shiftbuddy.SelectionActivity">
 
     <ImageView
+        android:id="@+id/background"
         style="@style/BackGroundImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,34 +22,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/rectangle_darkgrey_border"
         android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/right_arrow"
+            android:layout_width="250dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="100dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/shiftbuddy_55"/>
 
         <LinearLayout
             android:id="@+id/senderLayout"
             style="?android:attr/buttonStyleSmall"
-            android:layout_marginTop="100dp"
-            android:layout_marginLeft="180dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginTop="50dp"
             android:layout_width="180dp"
             android:layout_height="60dp"
             android:orientation="horizontal"
-            android:layout_gravity="right"
-            android:background="@drawable/rectangle_red">
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/button_selector">
 
             <ImageView
                 android:id="@+id/sender_icon"
-                android:layout_width="25dp"
-                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_height="35dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/dropbox"/>
+                android:layout_marginLeft="-10dp"
+                android:layout_marginBottom="12dp"
+                android:src="@drawable/packer"/>
 
             <TextView
                 android:id="@+id/sender"
-                android:text="Sender"
+                android:text="Packers"
                 android:layout_marginLeft="20dp"
-                android:textColor="@android:color/holo_red_dark"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:layout_width="wrap_content"
@@ -64,35 +77,24 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="180dp"
             android:layout_height="60dp"
-            android:layout_marginTop="110dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="180dp"
+            android:layout_marginTop="90dp"
             android:orientation="horizontal"
-            android:layout_gravity="left"
-            android:background="@drawable/rectangle_orange">
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/button_selector">
 
             <ImageView
                 android:id="@+id/mover_icon"
                 android:layout_width="40dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
                 android:layout_marginBottom="10dp"
-                android:src="@drawable/fa"/>
-            <ImageView
-                android:id="@+id/mover_icon2"
-                android:layout_width="40dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="-25dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/fa"/>
+                android:src="@drawable/mover"/>
 
             <TextView
                 android:id="@+id/mover"
-                android:text="Mover"
+                android:text="Movers"
                 android:layout_marginLeft="20dp"
-                android:textColor="@android:color/holo_orange_dark"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:layout_width="wrap_content"
@@ -104,8 +106,16 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/terms_and_conditions"
+            android:layout_marginTop="65dp"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginLeft="2dp"
+            android:gravity="center"
+            android:text="@string/terms_and_conditions"/>
 
+    </LinearLayout>
 
 
 

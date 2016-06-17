@@ -1,21 +1,31 @@
 package com.shiftbuddy;
 
-import android.annotation.TargetApi;
+/**
+ * @(#) ShiftBuddy
+ * <p>
+ * Copyright (C) ShiftBuddy, 2016
+ * All rights reserved.
+ * <p>
+ * This software is the proprietary information of
+ * shiftbuddy ("Confidential Information").
+ * Author : Dinesh Vaithyalingam Gangatharan
+ */
+
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class SelectionActivity extends AppCompatActivity {
 
+    RelativeLayout container;
     LinearLayout senderlayout;
     LinearLayout moverLayout;
-    TextView sender;
-    TextView mover;
+    TextView termsAndConditions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +46,14 @@ public class SelectionActivity extends AppCompatActivity {
         moveTaskToBack(true);
     }
 
+    //SnackBar to show user that he has to enter username and password
+    private void openAuthenticationSnackbar() {
+        Snackbar snackbar = Snackbar
+                .make(container,
+                        "Open terms and conditions page.", Snackbar.LENGTH_SHORT);
+        snackbar.show();
+    }
+
     /**
      * Dispatch onResume() to fragments.  Note that for better inter-operation
      * with older versions of the platform, at the point of this call the
@@ -45,47 +63,40 @@ public class SelectionActivity extends AppCompatActivity {
      * with fragments in their proper state, you should instead override
      * {@link #onResumeFragments()}.
      */
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onResume() {
         super.onResume();
-        senderlayout.setBackgroundDrawable(getDrawable(R.drawable.rectangle_red));
-        moverLayout.setBackgroundDrawable(getDrawable(R.drawable.rectangle_orange));
-
-        if(sender!=null)
-            sender.setTextColor(Color.parseColor("#ffcc0000"));
-        if(mover!=null)
-            mover.setTextColor(Color.parseColor("#ffff8800"));
     }
 
     private void init() {
+        container = (RelativeLayout)findViewById(R.id.selection_layout);
         senderlayout = (LinearLayout)findViewById(R.id.senderLayout);
         moverLayout = (LinearLayout) findViewById(R.id.moverLayout);
-        sender = (TextView) findViewById(R.id.sender);
-        mover = (TextView) findViewById(R.id.mover);
+        termsAndConditions = (TextView) findViewById(R.id.terms_and_conditions);
     }
 
     private void initListeners() {
 
         senderlayout.setOnClickListener(new View.OnClickListener() {
-            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
-                senderlayout.setBackgroundDrawable(getDrawable(R.drawable.rectangle_red_filled));
-                sender.setTextColor(Color.WHITE);
                 Intent myIntent = new Intent(SelectionActivity.this, ShipmentActivity.class);
                 startActivity(myIntent);
             }
         });
 
         moverLayout.setOnClickListener(new View.OnClickListener() {
-            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
-                moverLayout.setBackgroundDrawable(getDrawable(R.drawable.rectangle_orange_filled));
-                mover.setTextColor(Color.WHITE);
                 Intent myIntent = new Intent(SelectionActivity.this, ShipmentActivity.class);
                 startActivity(myIntent);
+            }
+        });
+
+        termsAndConditions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openAuthenticationSnackbar();
             }
         });
     }

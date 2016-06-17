@@ -1,5 +1,16 @@
 package com.shiftbuddy;
 
+/**
+ * @(#) ShiftBuddy
+ * <p>
+ * Copyright (C) ShiftBuddy, 2016
+ * All rights reserved.
+ * <p>
+ * This software is the proprietary information of
+ * shiftbuddy ("Confidential Information").
+ * Author : Dinesh Vaithyalingam Gangatharan
+ */
+
 import android.app.Application;
 import android.test.ApplicationTestCase;
 

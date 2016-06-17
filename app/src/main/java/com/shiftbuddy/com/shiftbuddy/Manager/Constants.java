@@ -13,6 +13,19 @@ package com.shiftbuddy.com.shiftbuddy.Manager;
 
 public class Constants {
 
-    public static final String userName = "shiftbuddy";
-    public static final String password = "shiftbuddy";
+    /**
+     * PHP Links to database. Currently built with separate PHP scripts to local database
+     */
+    public static final String CONNECT = "http://192.168.0.73/connection.php";
+    public static final String LOGIN = "http://192.168.0.73/register.php";
+
+    /**
+     * BROADCAST IDENTITIES
+     */
+    public static final String BROADCAST_LOGIN_JSON = "shiftBuddyLoginCredentials";
+
+    public static final String CREDENTIALS_FOR_USER = "loginJsonObject";
+    public static final String WRONG_USER = "oops! Please try again!";
+    public static final String INERNET_ERROR = "Issue with connection. Please try again.";
+    public static final String USER_VALIDATION = "Please enter valid username and password";
 }

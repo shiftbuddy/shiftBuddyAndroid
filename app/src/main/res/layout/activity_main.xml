@@ -6,12 +6,12 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="@drawable/road19"
+    android:background="@drawable/bg_app"
     tools:context="com.shiftbuddy.MainActivity">
 
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="100dp"
         android:id="@+id/header"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
@@ -21,13 +21,13 @@
             android:layout_width="250dp"
             android:layout_height="80dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/right_arrow"/>
+            android:src="@drawable/shiftbuddy_55"/>
 
         <TextView
             android:id="@+id/title"
             android:layout_below="@id/right_arrow"
             android:layout_marginTop="20dp"
-            android:text="Shift   - Buddy"
+            android:text="Shift - Buddy"
             android:shadowColor="@color/colorPrimaryDark"
             android:shadowDx="2"
             android:shadowDy="2"
@@ -45,7 +45,7 @@
             android:id="@+id/tagLine"
             android:layout_below="@+id/title"
             android:textSize="25sp"
-            android:text="You Click.     We Pick."
+            android:text="You Click. We Pick."
             android:shadowColor="@color/colorPrimaryDark"
             android:shadowDx="2"
             android:shadowDy="2"
@@ -65,7 +65,7 @@
             android:layout_marginRight="30dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:alpha="0.4"
+            android:alpha="0.75"
             android:orientation="horizontal"
             android:background="@drawable/rectangle_light_grey">
 
@@ -98,7 +98,7 @@
             android:layout_marginRight="30dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:alpha="0.4"
+            android:alpha="0.75"
             android:orientation="horizontal"
             android:background="@drawable/rectangle_light_grey">
 
@@ -131,22 +131,36 @@
             android:layout_marginRight="30dp"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:orientation="vertical"
-            android:background="@drawable/rectangle_darkgrey_border">
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/navigateScreen"
-                android:text="Register    /    Login"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:layout_width="wrap_content"
+            <com.shiftbuddy.Layout.MyButton
+                android:id="@+id/login"
+                android:layout_weight="0.5"
+                android:layout_width="fill_parent"
                 android:layout_height="40dp"
-                android:gravity="center"
+                android:background="@drawable/button_selector"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:text="Login"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginRight="10dp" />
+
+            <com.shiftbuddy.Layout.MyButton
+                android:id="@+id/register"
+                android:layout_weight="0.5"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/button_selector"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                android:text="Register"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_horizontal" />
-
             </LinearLayout>
 
 
