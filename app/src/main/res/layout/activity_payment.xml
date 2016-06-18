@@ -9,197 +9,276 @@
     android:background="@drawable/wallpaper_thumb_01"
     tools:context="com.shiftbuddy.PaymentActivity">
 
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
-
-        <ImageView
-            android:id="@+id/box_for_strip"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
-            android:src="@drawable/packer"/>
-
-        <TextView
-            android:id="@+id/shipment"
-            android:textColor="@android:color/white"
-            android:textStyle="italic"
-            android:textSize="20sp"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:text="Shipper"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/box_for_strip"
-            android:layout_toEndOf="@+id/box_for_strip" />
-
-        <View
-            android:id="@+id/line1"
-            android:layout_toRightOf="@+id/shipment"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="7.5dp"
-            android:layout_width="50dp"
-            android:layout_height="1dp"
-            android:background="#cc222222"/>
-
-
-        <View
-            android:id="@+id/line2"
-            android:layout_toRightOf="@+id/line1"
-            android:layout_marginLeft="2.5dp"
-            android:layout_marginTop="7.5dp"
-            android:layout_width="50dp"
-            android:layout_height="1dp"
-            android:background="#cc222222"/>
-
-        <LinearLayout
-            android:id="@+id/circle"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_marginLeft="2.5dp"
-            android:orientation="horizontal"
-            android:layout_toRightOf="@+id/line2"
-            android:background="@drawable/circle"/>
-
-        <LinearLayout
-            android:id="@+id/next"
-            android:layout_toRightOf="@+id/line2"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/button_selector"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_gravity="center_vertical"
-                android:textAlignment="center"
-                android:id="@+id/nextText"
-                android:layout_width="fill_parent"
-                android:layout_height="30dp"
-                android:paddingTop="5dp"
-                android:textSize="15dp"
-                android:text="HELP"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"/>
-
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/from_address"
-            android:layout_below="@+id/box_for_strip"
-            android:layout_marginTop="30dp"
-            android:layout_width="25dp"
-            android:layout_height="50dp"
-            android:src="@drawable/location"/>
-
-        <ImageView
-            android:id="@+id/to_address"
-            android:layout_below="@+id/from_address"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginTop="20dp"
-            android:layout_width="25dp"
-            android:layout_height="50dp"
-            android:src="@drawable/location"/>
-
-        <LinearLayout
-            android:id="@+id/from"
-            android:layout_toRightOf="@+id/from_address"
-            android:layout_marginLeft="10dp"
-            android:layout_width="match_parent"
-            android:layout_marginTop="60dp"
-            android:layout_height="60dp"
-            android:orientation="horizontal"
-            android:background="@drawable/rectangle_grey_with_light">
-
-            <EditText
-                android:id="@+id/address_from"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="From Address"
-                android:textColor="@android:color/white"
-                android:layout_marginLeft="10dp"
-                android:background="@android:color/transparent"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/to"
-            android:layout_below="@+id/from_address"
-            android:layout_toRightOf="@+id/to_address"
-            android:layout_marginLeft="10dp"
-            android:layout_width="match_parent"
-            android:layout_marginTop="25dp"
-            android:layout_height="60dp"
-            android:orientation="horizontal"
-            android:background="@drawable/rectangle_grey_with_light">
-
-            <EditText
-                android:id="@+id/address_to"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="To Address"
-                android:textColor="@android:color/white"
-                android:layout_marginLeft="10dp"
-                android:background="@android:color/transparent"/>
-        </LinearLayout>
-
-        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/compactcalendar_view"
-            android:layout_below="@+id/to"
-            android:layout_width="match_parent"
-            android:layout_height="8    0dp"
-            app:mcv_showOtherDates="all"
-            app:mcv_selectionColor="#00F" />
-
-        <LinearLayout
-            android:id="@+id/payment_gateway"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/compactcalendar_view">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:textAlignment="gravity"
-                android:gravity="center_vertical"
-                android:layout_gravity="center_vertical"
-                android:textSize="15dp"
-                android:text="Secure payment Gateway"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:src="@drawable/paypal"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/send_package"
-            android:layout_marginTop="15dp"
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:layout_below="@+id/payment_gateway"
-            android:orientation="horizontal"
-            android:background="@drawable/button_selector">
-
+                android:id="@+id/box_for_strip"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:src="@drawable/packer"/>
 
             <TextView
+                android:id="@+id/shipment"
+                android:textColor="@android:color/white"
+                android:textStyle="italic"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:text="Shipper"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/box_for_strip"
+                android:layout_toEndOf="@+id/box_for_strip" />
+
+            <View
+                android:id="@+id/line1"
+                android:layout_toRightOf="@+id/shipment"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="7.5dp"
+                android:layout_width="50dp"
+                android:layout_height="1dp"
+                android:background="#cc222222"/>
+
+
+            <View
+                android:id="@+id/line2"
+                android:layout_toRightOf="@+id/line1"
+                android:layout_marginLeft="2.5dp"
+                android:layout_marginTop="7.5dp"
+                android:layout_width="50dp"
+                android:layout_height="1dp"
+                android:background="#cc222222"/>
+
+            <LinearLayout
+                android:id="@+id/circle"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="2.5dp"
+                android:orientation="horizontal"
+                android:layout_toRightOf="@+id/line2"
+                android:background="@drawable/circle"/>
+
+            <LinearLayout
+                android:id="@+id/next"
+                android:layout_toRightOf="@+id/line2"
                 android:layout_width="fill_parent"
-                android:layout_height="40dp"
-                android:textAlignment="gravity"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_weight="0.1"
-                android:textSize="15dp"
-                android:text="Post Package"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"/>
+                android:layout_height="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/button_selector"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:textAlignment="center"
+                    android:id="@+id/nextText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:paddingTop="5dp"
+                    android:textSize="15dp"
+                    android:text="HELP"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"/>
+
             </LinearLayout>
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/from_address"
+                android:layout_below="@+id/box_for_strip"
+                android:layout_marginTop="30dp"
+                android:layout_width="25dp"
+                android:layout_height="50dp"
+                android:src="@drawable/location"/>
+
+            <ImageView
+                android:id="@+id/to_address"
+                android:layout_below="@+id/from_address"
+                android:layout_marginTop="20dp"
+                android:layout_width="25dp"
+                android:layout_height="50dp"
+                android:src="@drawable/location"/>
+
+            <LinearLayout
+                android:id="@+id/from"
+                android:layout_toRightOf="@+id/from_address"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_marginTop="60dp"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:background="@drawable/rectangle_grey_with_light">
+
+                <EditText
+                    android:id="@+id/address_from"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="From Address"
+                    android:textColor="@android:color/white"
+                    android:layout_marginLeft="10dp"
+                    android:background="@android:color/transparent"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/to"
+                android:layout_below="@+id/from_address"
+                android:layout_toRightOf="@+id/to_address"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_marginTop="25dp"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:background="@drawable/rectangle_grey_with_light">
+
+                <EditText
+                    android:id="@+id/address_to"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="To Address"
+                    android:textColor="@android:color/white"
+                    android:layout_marginLeft="10dp"
+                    android:background="@android:color/transparent"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dates"
+                android:layout_below="@+id/to"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/pickupDateLayout"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="50dp">
+
+                    <TextView
+                        android:id="@+id/pickupDateButton"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:layout_weight="0.5"
+                        android:layout_marginRight="10dp"
+                        android:text="Pickup Date"
+                        android:gravity="center"
+                        android:background="@drawable/button_selector">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/pickupDateText"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:layout_weight="0.5"
+                        android:text="10/10/2016"
+                        android:gravity="center"
+                        android:background="@drawable/rectangle_grey_with_light">
+                    </TextView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/receiveDateLayout"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="50dp">
+
+                    <TextView
+                        android:id="@+id/receiveDateButton"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:layout_weight="0.5"
+                        android:layout_marginRight="10dp"
+                        android:text="Deliver Date"
+                        android:gravity="center"
+                        android:background="@drawable/button_selector">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/receiveDateText"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:layout_weight="0.5"
+                        android:text="10/10/2016"
+                        android:gravity="center"
+                        android:background="@drawable/rectangle_grey_with_light">
+                    </TextView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/payment_gateway"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/dates">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:textAlignment="gravity"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="15dp"
+                    android:text="Secure payment Gateway"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:src="@drawable/paypal"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/send_package"
+                android:layout_marginTop="15dp"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/payment_gateway"
+                android:orientation="horizontal"
+                android:background="@drawable/button_selector">
+
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:textAlignment="gravity"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="0.1"
+                    android:textSize="15dp"
+                    android:text="Post Package"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
 </LinearLayout>

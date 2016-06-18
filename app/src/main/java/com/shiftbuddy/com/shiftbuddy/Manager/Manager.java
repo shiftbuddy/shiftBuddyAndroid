@@ -8,6 +8,10 @@ import android.view.View;
 
 import java.io.IOException;
 import java.net.ConnectException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -39,7 +43,7 @@ public class Manager {
     }
 
     public Manager(String text, View layout) {
-        openAuthenticationSnackbar(text,layout);
+        openAuthenticationSnackbar(text, layout);
     }
 
     public void authenticateUser(final String username, final String password,final Context context) throws IOException {
@@ -54,7 +58,7 @@ public class Manager {
         loginThread = new Thread();
     }
 
-    private static void openAuthenticationSnackbar(String text,View layout) {
+    public static void openAuthenticationSnackbar(String text,View layout) {
         Snackbar snackbar = Snackbar.make(layout, text, Snackbar.LENGTH_SHORT);
         snackbar.show();
     }
@@ -98,6 +102,30 @@ public class Manager {
     };
 
 
-
-
+    public static boolean verifyDate(String pickupDate, String deliverDate) {
+        boolean returnVal = false;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        Calendar c = Calendar.getInstance();
+        Date currentDate = new Date();
+        Date pickUpConvertedDate = new Date();
+        Date deliveryConvertedDate = new Date();
+        try {
+            currentDate = dateFormat.parse(dateFormat.format(c.getTime()));
+            pickUpConvertedDate = dateFormat.parse(pickupDate);
+            deliveryConvertedDate = dateFormat.parse(deliverDate);
+            if((pickUpConvertedDate.equals(deliveryConvertedDate) || pickUpConvertedDate.before(deliveryConvertedDate))
+                  && (!pickUpConvertedDate.before(currentDate) && !deliveryConvertedDate.before(currentDate))  ) {
+                returnVal = true;
+            } else if (pickUpConvertedDate.after(deliveryConvertedDate)) {
+                returnVal = false;
+            } else if(pickUpConvertedDate.before(currentDate) || deliveryConvertedDate.before(currentDate)) {
+                returnVal = false;
+            }
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        Log.d(TAG, "Pickup @ "+pickUpConvertedDate +"and delivery @"+ deliveryConvertedDate);
+        return returnVal;
+    }
 }
