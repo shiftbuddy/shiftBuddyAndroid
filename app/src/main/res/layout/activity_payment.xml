@@ -117,7 +117,7 @@
                 android:orientation="horizontal"
                 android:background="@drawable/rectangle_grey_with_light">
 
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/address_from"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -138,7 +138,7 @@
                 android:orientation="horizontal"
                 android:background="@drawable/rectangle_grey_with_light">
 
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/address_to"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

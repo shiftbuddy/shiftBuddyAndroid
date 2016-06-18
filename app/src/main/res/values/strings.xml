@@ -3,4 +3,6 @@
     <string name="title_activity_selection">SelectionActivity</string>
     <string name="title_activity_payment">PaymentActivity</string>
     <string name="terms_and_conditions">Please read through the terms and conditions before use.</string>
+    <string name="google_app_id">YOUR_PROJECT_NUMBER</string>
+    <string name="server_client_id">926926291966-up7b544n7jm2ls3bqre8qm7amaqbjvri.apps.googleusercontent.com</string>
 </resources>

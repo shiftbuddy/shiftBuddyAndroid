@@ -1,4 +1,4 @@
-package com.shiftbuddy.com.shiftbuddy.Manager;
+package com.shiftbuddy.Manager;
 
 import android.graphics.Bitmap;
 

@@ -1,4 +1,4 @@
-package com.shiftbuddy.com.shiftbuddy.bo;
+package com.shiftbuddy.bo;
 
 import android.graphics.Bitmap;
 import android.os.Parcel;

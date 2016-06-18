@@ -27,9 +27,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.shiftbuddy.com.shiftbuddy.Manager.Constants;
-import com.shiftbuddy.com.shiftbuddy.Manager.Manager;
-import com.shiftbuddy.com.shiftbuddy.bo.Shipment;
+import com.shiftbuddy.Manager.Constants;
+import com.shiftbuddy.Manager.Manager;
+import com.shiftbuddy.bo.Shipment;
 
 import java.io.File;
 

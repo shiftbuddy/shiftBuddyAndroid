@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "926926291966",
+    "project_id": "shiftbuddy-88de9"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:926926291966:android:27d689d63f1b7a06",
+        "android_client_info": {
+          "package_name": "com.google.samples.quickstart.signin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "926926291966-up7b544n7jm2ls3bqre8qm7amaqbjvri.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.google.samples.quickstart.signin",
+            "certificate_hash": "88C0BD1D0C4D7F8CF7A8731D795E285E3A7A69AF"
+          }
+        },
+        {
+          "client_id": "926926291966-gmfs78b32i37gs1921j4vp10cv9mtutg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD64odemgpadTeqfimi8YYluZw87Vv0GZs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

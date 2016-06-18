@@ -28,9 +28,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.shiftbuddy.Layout.MyButton;
-import com.shiftbuddy.com.shiftbuddy.Manager.BlurBuilder;
-import com.shiftbuddy.com.shiftbuddy.Manager.Constants;
-import com.shiftbuddy.com.shiftbuddy.Manager.HttpCalls;
+import com.shiftbuddy.Manager.BlurBuilder;
+import com.shiftbuddy.Manager.Constants;
+import com.shiftbuddy.Manager.HttpCalls;
 
 import java.io.IOException;
 
