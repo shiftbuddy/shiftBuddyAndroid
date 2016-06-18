@@ -1,23 +1,13 @@
 package com.shiftbuddy.com.shiftbuddy.Manager;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 
-import java.io.IOException;
-import java.net.ConnectException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 /**
  * @(#) ShiftBuddy
@@ -34,19 +24,56 @@ public class Manager {
 
     public static final String TAG = Manager.class.getSimpleName();
 
-    OkHttpClient client = new OkHttpClient();
+    /*OkHttpClient client = new OkHttpClient();
     String u_name;
     String p_word;
-    Context ctx;
+    Context ctx;*/
 
     public Manager() {
     }
 
-    public Manager(String text, View layout) {
+    /*public Manager(String text, View layout) {
         openAuthenticationSnackbar(text, layout);
+    }*/
+
+    public static void openAuthenticationSnackbar(String text,View layout) {
+        Snackbar snackbar = Snackbar.make(layout, text, Snackbar.LENGTH_SHORT);
+        snackbar.show();
     }
 
-    public void authenticateUser(final String username, final String password,final Context context) throws IOException {
+    public static boolean verifyDate(String pickupDate, String deliverDate) {
+        boolean returnVal = false;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        Calendar c = Calendar.getInstance();
+        Date currentDate = new Date();
+        Date pickUpConvertedDate = new Date();
+        Date deliveryConvertedDate = new Date();
+        try {
+            currentDate = dateFormat.parse(dateFormat.format(c.getTime()));
+            pickUpConvertedDate = dateFormat.parse(pickupDate);
+            deliveryConvertedDate = dateFormat.parse(deliverDate);
+            if((pickUpConvertedDate.equals(deliveryConvertedDate) || pickUpConvertedDate.before(deliveryConvertedDate))
+                  && (!pickUpConvertedDate.before(currentDate) && !deliveryConvertedDate.before(currentDate))  ) {
+                returnVal = true;
+            } else if (pickUpConvertedDate.after(deliveryConvertedDate)) {
+                returnVal = false;
+            } else if(pickUpConvertedDate.before(currentDate) || deliveryConvertedDate.before(currentDate)) {
+                returnVal = false;
+            }
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        Log.d(TAG, "Pickup @ "+pickUpConvertedDate +"and delivery @"+ deliveryConvertedDate);
+        return returnVal;
+    }
+
+    public static boolean verifyAddress(String fromAddress, String toAddress) {
+        return false;
+    }
+}
+
+/*public void authenticateUser(final String username, final String password,final Context context) throws IOException {
         u_name = username;
         p_word = password;
         ctx = context;
@@ -56,14 +83,9 @@ public class Manager {
     public void stopLoginThread() {
         Log.d(TAG,"Login thread stopped");
         loginThread = new Thread();
-    }
+    }*/
 
-    public static void openAuthenticationSnackbar(String text,View layout) {
-        Snackbar snackbar = Snackbar.make(layout, text, Snackbar.LENGTH_SHORT);
-        snackbar.show();
-    }
-
-    Thread loginThread = new Thread() {
+/*Thread loginThread = new Thread() {
 
         @Override
         public void run()
@@ -99,33 +121,4 @@ public class Manager {
             }
 
         }
-    };
-
-
-    public static boolean verifyDate(String pickupDate, String deliverDate) {
-        boolean returnVal = false;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        Calendar c = Calendar.getInstance();
-        Date currentDate = new Date();
-        Date pickUpConvertedDate = new Date();
-        Date deliveryConvertedDate = new Date();
-        try {
-            currentDate = dateFormat.parse(dateFormat.format(c.getTime()));
-            pickUpConvertedDate = dateFormat.parse(pickupDate);
-            deliveryConvertedDate = dateFormat.parse(deliverDate);
-            if((pickUpConvertedDate.equals(deliveryConvertedDate) || pickUpConvertedDate.before(deliveryConvertedDate))
-                  && (!pickUpConvertedDate.before(currentDate) && !deliveryConvertedDate.before(currentDate))  ) {
-                returnVal = true;
-            } else if (pickUpConvertedDate.after(deliveryConvertedDate)) {
-                returnVal = false;
-            } else if(pickUpConvertedDate.before(currentDate) || deliveryConvertedDate.before(currentDate)) {
-                returnVal = false;
-            }
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        Log.d(TAG, "Pickup @ "+pickUpConvertedDate +"and delivery @"+ deliveryConvertedDate);
-        return returnVal;
-    }
-}
+    };*/

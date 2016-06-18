@@ -116,7 +116,7 @@ public class ShipmentActivity extends AppCompatActivity {
                     //Open next screen
                     startActivity(shipmentIntent);
                 } else {
-                    Manager mg = new Manager("Please fill all required fields", container);
+                    Manager.openAuthenticationSnackbar("Please fill all required fields", container);
                 }
 
             }

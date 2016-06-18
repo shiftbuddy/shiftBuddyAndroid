@@ -30,7 +30,7 @@ import android.widget.LinearLayout;
 import com.shiftbuddy.Layout.MyButton;
 import com.shiftbuddy.com.shiftbuddy.Manager.BlurBuilder;
 import com.shiftbuddy.com.shiftbuddy.Manager.Constants;
-import com.shiftbuddy.com.shiftbuddy.Manager.Manager;
+import com.shiftbuddy.com.shiftbuddy.Manager.HttpCalls;
 
 import java.io.IOException;
 
@@ -44,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
     EditText password;
     MyButton login;
     MyButton register;
-    Manager manager = new Manager();
+    HttpCalls httpCalls = new HttpCalls();
+    //Manager manager = new Manager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 if (userName.getText() != null && password.getText() != null) {
                     if(! userName.getText().toString().equals("") && !password.getText().toString().equals("")) {
                         try {
-                            manager.authenticateUser(userName.getText().toString(), password.getText().toString(),
+                            httpCalls.login(userName.getText().toString(), password.getText().toString(),
                                     getApplicationContext());
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -149,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            manager.stopLoginThread();
+            //manager.stopLoginThread();
             if (intent.getAction().equals(Constants.BROADCAST_LOGIN_JSON)) {
                 try {
                     Bundle bundle = intent.getExtras();

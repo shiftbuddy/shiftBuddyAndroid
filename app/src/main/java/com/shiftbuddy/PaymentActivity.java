@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.shiftbuddy.com.shiftbuddy.Manager.Constants;
+import com.shiftbuddy.com.shiftbuddy.Manager.HttpCalls;
 import com.shiftbuddy.com.shiftbuddy.Manager.Manager;
 import com.shiftbuddy.com.shiftbuddy.bo.Shipment;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -93,11 +94,21 @@ public class PaymentActivity extends AppCompatActivity implements DatePickerDial
             public void onClick(View view) {
                 if (!fromAddress.getText().toString().equals("") && !toAddress.getText().toString().equals("")) {
                     //validate address in Manager class
-                    //validate date
-                    if(Manager.verifyDate(pickUpDateText.getText().toString(),deliverDateText.getText().toString())) {
-                        Manager.openAuthenticationSnackbar("Your package has been successfully posted!",paymentActivity);
+                    boolean addressVerification = Manager.verifyAddress(fromAddress.getText().toString(),toAddress.getText().toString());
+                    if(addressVerification) {
+                        shipment.setSenderAddress(fromAddress.getText().toString());
+                        shipment.setReceiverAddress(toAddress.getText().toString());
+                        //validate date in Manager class
+                        if(Manager.verifyDate(pickUpDateText.getText().toString(),deliverDateText.getText().toString())) {
+                            shipment.setSendingDate(pickUpDateText.getText().toString());
+                            shipment.setReceptionDate(deliverDateText.getText().toString());
+                            HttpCalls.updateShipmentInDatabase(shipment);
+                            Manager.openAuthenticationSnackbar("Your package has been successfully posted!",paymentActivity);
+                        } else {
+                            Manager.openAuthenticationSnackbar("Please enter valid date.",paymentActivity);
+                        }
                     } else {
-                        Manager.openAuthenticationSnackbar("Please enter valid date.",paymentActivity);
+                        Manager.openAuthenticationSnackbar("Please enter valid location.",paymentActivity);
                     }
                 } else {
                     Manager.openAuthenticationSnackbar("Please enter valid location.",paymentActivity);
