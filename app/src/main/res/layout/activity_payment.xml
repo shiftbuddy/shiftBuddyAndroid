@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/brushed_silver_metallic_background_opt"
+    android:background="@drawable/wallpaper_thumb_01"
     tools:context="com.shiftbuddy.PaymentActivity">
 
 
@@ -21,7 +21,7 @@
             android:id="@+id/box_for_strip"
             android:layout_width="50dp"
             android:layout_height="30dp"
-            android:src="@drawable/dropbox"/>
+            android:src="@drawable/packer"/>
 
         <TextView
             android:id="@+id/shipment"
@@ -70,14 +70,16 @@
             android:layout_height="30dp"
             android:layout_marginLeft="30dp"
             android:layout_alignParentRight="true"
+            android:background="@drawable/button_selector"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_gravity="right"
-                android:textAlignment="textEnd"
+                android:layout_gravity="center_vertical"
+                android:textAlignment="center"
                 android:id="@+id/nextText"
                 android:layout_width="fill_parent"
                 android:layout_height="30dp"
+                android:paddingTop="5dp"
                 android:textSize="15dp"
                 android:text="HELP"
                 android:textStyle="bold"
@@ -142,21 +144,14 @@
                 android:background="@android:color/transparent"/>
         </LinearLayout>
 
-        <com.github.sundeepk.compactcalendarview.CompactCalendarView
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/to"
             android:id="@+id/compactcalendar_view"
-            android:layout_width="fill_parent"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
-            android:layout_height="150dp"
-            app:compactCalendarTextSize="12sp"
-            app:compactCalendarBackgroundColor="#cc222222"
-            app:compactCalendarTextColor="#fff"
-            app:compactCalendarCurrentSelectedDayBackgroundColor="#E57373"
-            app:compactCalendarCurrentDayBackgroundColor="#B71C1C"
-            />
+            android:layout_below="@+id/to"
+            android:layout_width="match_parent"
+            android:layout_height="8    0dp"
+            app:mcv_showOtherDates="all"
+            app:mcv_selectionColor="#00F" />
 
         <LinearLayout
             android:id="@+id/payment_gateway"
@@ -190,7 +185,7 @@
             android:layout_height="50dp"
             android:layout_below="@+id/payment_gateway"
             android:orientation="horizontal"
-            android:background="@drawable/rectangle_darkgrey_border">
+            android:background="@drawable/button_selector">
 
 
             <TextView

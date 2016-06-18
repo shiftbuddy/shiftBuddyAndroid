@@ -2,7 +2,9 @@ package com.shiftbuddy.com.shiftbuddy.Manager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.View;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -36,6 +38,10 @@ public class Manager {
     public Manager() {
     }
 
+    public Manager(String text, View layout) {
+        openAuthenticationSnackbar(text,layout);
+    }
+
     public void authenticateUser(final String username, final String password,final Context context) throws IOException {
         u_name = username;
         p_word = password;
@@ -46,6 +52,11 @@ public class Manager {
     public void stopLoginThread() {
         Log.d(TAG,"Login thread stopped");
         loginThread = new Thread();
+    }
+
+    private static void openAuthenticationSnackbar(String text,View layout) {
+        Snackbar snackbar = Snackbar.make(layout, text, Snackbar.LENGTH_SHORT);
+        snackbar.show();
     }
 
     Thread loginThread = new Thread() {

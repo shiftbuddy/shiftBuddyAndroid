@@ -14,9 +14,13 @@ package com.shiftbuddy;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
+import com.shiftbuddy.com.shiftbuddy.Manager.Constants;
+import com.shiftbuddy.com.shiftbuddy.bo.Shipment;
 
 public class PaymentActivity extends AppCompatActivity {
 
@@ -25,9 +29,13 @@ public class PaymentActivity extends AppCompatActivity {
     LinearLayout postPackage;
     EditText fromAddress;
     EditText toAddress;
+    Shipment shipment = new Shipment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Bundle bundle = this.getIntent().getExtras();
+        shipment = (Shipment)bundle.get(Constants.SHIPMENT_INTENT);
+        Log.d(TAG,shipment.getDescription());
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);

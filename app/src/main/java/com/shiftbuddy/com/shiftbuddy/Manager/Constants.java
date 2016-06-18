@@ -14,6 +14,16 @@ package com.shiftbuddy.com.shiftbuddy.Manager;
 public class Constants {
 
     /**
+     * Shared_Preferences for user_data
+     */
+    public final static String SHARED_PREFS = "PREFS";
+    public final static String USER_NAME_PREF = "USER_NAME_PREF";
+
+    /**
+     * Intents
+     */
+    public final static String SHIPMENT_INTENT = "shipmentIntent";
+    /**
      * PHP Links to database. Currently built with separate PHP scripts to local database
      */
     public static final String CONNECT = "http://192.168.0.73/connection.php";

@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
     private void openAuthenticationSnackbar(String text) {
         Snackbar snackbar = Snackbar
                 .make(mainActivityLayout,
-                        "Please enter valid username and password", Snackbar.LENGTH_SHORT);
+                        text, Snackbar.LENGTH_SHORT);
         snackbar.show();
     }
 

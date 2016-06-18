@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:id="@+id/shipmentActivity"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@drawable/brushed_silver_metallic_background_opt"
+    android:background="@drawable/wallpaper_thumb_01"
     tools:context="com.shiftbuddy.ShipmentActivity">
 
     <RelativeLayout
@@ -18,7 +21,7 @@
             android:id="@+id/box_for_strip"
             android:layout_width="50dp"
             android:layout_height="30dp"
-            android:src="@drawable/dropbox"/>
+            android:src="@drawable/packer"/>
 
             <TextView
                 android:id="@+id/shipment"
@@ -27,7 +30,7 @@
                 android:textSize="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:text="Shipper"
+                android:text="Packer"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/box_for_strip"
                 android:layout_toEndOf="@+id/box_for_strip" />
@@ -65,14 +68,16 @@
             android:layout_height="30dp"
             android:layout_marginLeft="30dp"
             android:layout_alignParentRight="true"
+            android:background="@drawable/button_selector"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_gravity="right"
-                android:textAlignment="textEnd"
+                android:layout_gravity="center"
+                android:textAlignment="center"
                 android:id="@+id/nextText"
                 android:layout_width="fill_parent"
                 android:layout_height="30dp"
+                android:gravity="center"
                 android:textSize="15dp"
                 android:text="NEXT"
                 android:textStyle="bold"
@@ -93,24 +98,24 @@
             android:background="@drawable/rectangle_darkgrey_border">
 
             <ImageView
+                android:id="@+id/picture"
                 android:layout_alignTop="@+id/show_image"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:src="@drawable/box"/>
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/upload_image"
             android:layout_width="fill_parent"
             android:layout_height="50dp"
-            android:id="@+id/upload_image"
             android:layout_below="@+id/show_image"
             android:orientation="horizontal"
-            android:background="@drawable/rectangle_darkgrey_border">
+            android:background="@drawable/button_selector">
 
             <TextView
-                android:text="Upload Image"
+                android:text="Select image"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
                 android:textSize="25sp"
@@ -145,7 +150,7 @@
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Dimensions"
+            android:text="Dimensions (cm) [ht x len x brdt]"
             android:textStyle="italic"
             android:textSize="20sp"/>
         
@@ -166,15 +171,20 @@
                 android:layout_weight="0.2"
                 android:background="@drawable/rectangle_grey_with_light">
 
-                <EditText
+                <biz.kasual.materialnumberpicker.MaterialNumberPicker
                     android:id="@+id/ht"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:gravity="center_horizontal"
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:background="@android:color/transparent"
-                    android:hint="H(cm)"/>
+                    android:layout_height="match_parent"
+                    app:npMinValue="1"
+                    app:npMaxValue="10000"
+                    app:npDefaultValue="10"
+                    app:npBackgroundColor="@android:color/transparent"
+                    app:npSeparatorColor="@android:color/transparent"
+                    app:npTextColor="@color/colorAccent"
+                    android:background="@drawable/rectangle_grey_with_light"
+                    app:npTextSize="20sp"/>
+
+
 
             </LinearLayout>
 
@@ -187,7 +197,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="10dp"
                 android:textAllCaps="true"
-                android:textColor="@android:color/white"
+                android:textColor="@color/colorAccent"
                 android:textStyle="bold"
                 android:textSize="25sp"/>
 
@@ -199,15 +209,18 @@
                 android:layout_marginRight="5dp"
                 android:background="@drawable/rectangle_grey_with_light">
 
-                <EditText
+                <biz.kasual.materialnumberpicker.MaterialNumberPicker
                     android:id="@+id/wdth"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:gravity="center_horizontal"
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:background="@android:color/transparent"
-                    android:hint="W(cm)"/>
+                    android:layout_height="match_parent"
+                    app:npMinValue="1"
+                    app:npMaxValue="10000"
+                    app:npDefaultValue="10"
+                    app:npBackgroundColor="@android:color/transparent"
+                    app:npSeparatorColor="@android:color/transparent"
+                    app:npTextColor="@color/colorAccent"
+                    android:background="@drawable/rectangle_grey_with_light"
+                    app:npTextSize="20sp"/>
 
             </LinearLayout>
 
@@ -220,7 +233,7 @@
                 android:layout_marginTop="10dp"
                 android:text="X"
                 android:textAllCaps="true"
-                android:textColor="@android:color/white"
+                android:textColor="@color/colorAccent"
                 android:textStyle="bold"
                 android:textSize="25sp"/>
 
@@ -232,15 +245,18 @@
                 android:layout_marginRight="5dp"
                 android:background="@drawable/rectangle_grey_with_light">
 
-                <EditText
+                <biz.kasual.materialnumberpicker.MaterialNumberPicker
                     android:id="@+id/lngth"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:gravity="center_horizontal"
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:background="@android:color/transparent"
-                    android:hint="L(cm)"/>
+                    android:layout_height="match_parent"
+                    app:npMinValue="1"
+                    app:npMaxValue="10000"
+                    app:npDefaultValue="10"
+                    app:npBackgroundColor="@android:color/transparent"
+                    app:npSeparatorColor="@android:color/transparent"
+                    app:npTextColor="@color/colorAccent"
+                    android:background="@drawable/rectangle_grey_with_light"
+                    app:npTextSize="20sp"/>
 
             </LinearLayout>
 
@@ -283,7 +299,7 @@
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="weight"
+            android:text="weight (kg)"
             android:textStyle="italic"
             android:textSize="20sp"/>
 
@@ -296,15 +312,18 @@
             android:orientation="horizontal"
             android:background="@drawable/rectangle_grey_with_light">
 
-            <EditText
+            <biz.kasual.materialnumberpicker.MaterialNumberPicker
                 android:id="@+id/wt"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:gravity="center_horizontal"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:background="@android:color/transparent"
-                android:hint="Kg"/>
+                android:layout_height="match_parent"
+                app:npMinValue="1"
+                app:npMaxValue="10000"
+                app:npDefaultValue="10"
+                app:npBackgroundColor="@android:color/transparent"
+                app:npSeparatorColor="@android:color/transparent"
+                app:npTextColor="@color/colorAccent"
+                android:background="@drawable/rectangle_grey_with_light"
+                app:npTextSize="20sp"/>
 
         </LinearLayout>
 
