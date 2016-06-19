@@ -3,6 +3,9 @@
     <string name="title_activity_selection">SelectionActivity</string>
     <string name="title_activity_payment">PaymentActivity</string>
     <string name="terms_and_conditions">Please read through the terms and conditions before use.</string>
-    <string name="google_app_id">YOUR_PROJECT_NUMBER</string>
+    <string name="google_app_id">shiftbuddy-88de9</string>
+    <string name="google_api_key">AIzaSyD64odemgpadTeqfimi8YYluZw87Vv0GZs</string>
     <string name="server_client_id">926926291966-up7b544n7jm2ls3bqre8qm7amaqbjvri.apps.googleusercontent.com</string>
+    <string name="title_activity_location">LocationActivity</string>
+    <string name="default_place_text">Enter your location</string>
 </resources>

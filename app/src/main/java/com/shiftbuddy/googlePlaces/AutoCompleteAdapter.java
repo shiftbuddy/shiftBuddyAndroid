@@ -82,7 +82,10 @@ public class AutoCompleteAdapter extends ArrayAdapter<AutoCompletePlace> {
 
                 clear();
 
-                displayPredictiveResults( constraint.toString() );
+                if(constraint!=null) {
+                    displayPredictiveResults(constraint.toString());
+                }
+
 
                 return null;
             }
@@ -97,31 +100,67 @@ public class AutoCompleteAdapter extends ArrayAdapter<AutoCompletePlace> {
     private void displayPredictiveResults( String query )
     {
         //Southwest corner to Northeast corner.
-        LatLngBounds bounds = new LatLngBounds( new LatLng( 39.906374, -105.122337 ), new LatLng( 39.949552, -105.068779 ) );
+        LatLngBounds bounds = new LatLngBounds(
+                new LatLng( 39.906374, -105.122337 ),
+                new LatLng( 39.949552, -105.068779 ) );
 
         //Filter: https://developers.google.com/places/supported_types#table3
         List<Integer> filterTypes = new ArrayList<Integer>();
+
+        //filterTypes.add(Place.TYPE_COUNTRY);
+        filterTypes.add(Place.TYPE_GEOCODE);
+
         filterTypes.add( Place.TYPE_ESTABLISHMENT );
+        filterTypes.add(Place.TYPE_NEIGHBORHOOD);
+        filterTypes.add(Place.TYPE_STREET_ADDRESS);
 
-        Places.GeoDataApi.getAutocompletePredictions( mGoogleApiClient, query, bounds, AutocompleteFilter.create(filterTypes) )
-                .setResultCallback (
-                        new ResultCallback<AutocompletePredictionBuffer>() {
-                            @Override
-                            public void onResult( AutocompletePredictionBuffer buffer ) {
+        filterTypes.add(Place.TYPE_TRAIN_STATION);
+        filterTypes.add(Place.TYPE_TAXI_STAND);
+        filterTypes.add(Place.TYPE_SUBWAY_STATION);
+        filterTypes.add(Place.TYPE_BUS_STATION);
+        filterTypes.add(Place.TYPE_AIRPORT);
 
-                                if( buffer == null )
-                                    return;
+        filterTypes.add(Place.TYPE_RESTAURANT);
+        filterTypes.add(Place.TYPE_BAR);
+        filterTypes.add(Place.TYPE_BAKERY);
+        filterTypes.add(Place.TYPE_BICYCLE_STORE);
+        filterTypes.add(Place.TYPE_CAFE);
+        filterTypes.add(Place.TYPE_GAS_STATION);
+        filterTypes.add(Place.TYPE_NIGHT_CLUB);
 
-                                if( buffer.getStatus().isSuccess() ) {
-                                    for( AutocompletePrediction prediction : buffer ) {
-                                        //Add as a new item to avoid IllegalArgumentsException when buffer is released
-                                        add( new AutoCompletePlace( prediction.getPlaceId(), prediction.getDescription() ) );
+        filterTypes.add(Place.TYPE_SUBLOCALITY);
+        filterTypes.add(Place.TYPE_SUBLOCALITY_LEVEL_1);
+        filterTypes.add(Place.TYPE_SUBLOCALITY_LEVEL_2);
+        filterTypes.add(Place.TYPE_SUBLOCALITY_LEVEL_3);
+        filterTypes.add(Place.TYPE_SUBLOCALITY_LEVEL_4);
+        filterTypes.add(Place.TYPE_SUBLOCALITY_LEVEL_5);
+
+        filterTypes.add(Place.TYPE_POSTAL_CODE);
+        filterTypes.add(Place.TYPE_POSTAL_TOWN);
+        filterTypes.add(Place.TYPE_POSTAL_CODE_PREFIX);
+        filterTypes.add(Place.TYPE_POST_BOX);
+
+
+                Places.GeoDataApi.getAutocompletePredictions(mGoogleApiClient, query, bounds,
+                        AutocompleteFilter.create(filterTypes))
+                        .setResultCallback(
+                                new ResultCallback<AutocompletePredictionBuffer>() {
+                                    @Override
+                                    public void onResult(AutocompletePredictionBuffer buffer) {
+
+                                        if (buffer == null)
+                                            return;
+
+                                        if (buffer.getStatus().isSuccess()) {
+                                            for (AutocompletePrediction prediction : buffer) {
+                                                //Add as a new item to avoid IllegalArgumentsException when buffer is released
+                                                add(new AutoCompletePlace(prediction.getPlaceId(), prediction.getDescription()));
+                                            }
+                                        }
+
+                                        //Prevent memory leak by releasing buffer
+                                        buffer.release();
                                     }
-                                }
-
-                                //Prevent memory leak by releasing buffer
-                                buffer.release();
-                            }
-                        }, 60, TimeUnit.SECONDS );
+                                }, 60, TimeUnit.SECONDS);
     }
 }

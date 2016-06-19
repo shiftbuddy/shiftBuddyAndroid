@@ -11,16 +11,22 @@ package com.shiftbuddy;
  * Author : Dinesh Vaithyalingam Gangatharan
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 import com.shiftbuddy.Manager.Constants;
 import com.shiftbuddy.Manager.HttpCalls;
@@ -40,7 +46,7 @@ public class PaymentActivity extends AppCompatActivity
     LinearLayout paymentActivity;
     LinearLayout postPackage;
     AutoCompleteTextView fromAddress;
-    AutoCompleteTextView toAddress;
+    EditText toAddress;
     TextView pickupDateButton;
     TextView pickUpDateText;
     TextView deliverDateButton;
@@ -90,6 +96,21 @@ public class PaymentActivity extends AppCompatActivity
 
     private void initListeners() {
 
+        fromAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(PaymentActivity.this, LocationActivity.class);
+                startActivity(myIntent);
+            }
+        });
+        /*fromAddress.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AutoCompletePlace place = (AutoCompletePlace) parent.getItemAtPosition( position );
+                findPlaceById( place.getId() );
+            }
+        });*/
+
         pickupDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -135,7 +156,7 @@ public class PaymentActivity extends AppCompatActivity
                         if (Manager.verifyDate(pickUpDateText.getText().toString(), deliverDateText.getText().toString())) {
                             shipment.setSendingDate(pickUpDateText.getText().toString());
                             shipment.setReceptionDate(deliverDateText.getText().toString());
-                            httpCalls.updateShipmentInDatabase(shipment,getApplicationContext());
+                            httpCalls.updateShipmentInDatabase(shipment, getApplicationContext());
                             Manager.openAuthenticationSnackbar("Your package has been successfully posted!", paymentActivity);
                         } else {
                             Manager.openAuthenticationSnackbar("Please enter valid date.", paymentActivity);
@@ -151,11 +172,50 @@ public class PaymentActivity extends AppCompatActivity
         });
     }
 
+    private void findPlaceById(String id) {
+
+        if( TextUtils.isEmpty(id) || mGoogleApiClient == null || !mGoogleApiClient.isConnected() )
+            return;
+
+        Places.GeoDataApi.getPlaceById( mGoogleApiClient, id ) .setResultCallback(new ResultCallback<PlaceBuffer>() {
+            @Override
+            public void onResult(PlaceBuffer places) {
+                if (places.getStatus().isSuccess()) {
+                    Place place = places.get(0);
+                    displayPlace(place);
+                    fromAddress.setText("");
+                    mAdapter.clear();
+                }
+
+                //Release the PlaceBuffer to prevent a memory leak
+                places.release();
+            }
+        });
+    }
+
+    private void displayPlace(Place place) {
+
+        String content = "";
+        if( !TextUtils.isEmpty( place.getName() ) ) {
+            content += "Name: " + place.getName() + "\n";
+        }
+        if( !TextUtils.isEmpty( place.getAddress() ) ) {
+            content += "Address: " + place.getAddress() + "\n";
+        }
+        if( !TextUtils.isEmpty( place.getPhoneNumber() ) ) {
+            content += "Phone: " + place.getPhoneNumber();
+        }
+
+        toAddress.setText( content );
+    }
+
     private void init() {
         paymentActivity = (LinearLayout) findViewById(R.id.payment_activity_layout);
         postPackage = (LinearLayout) findViewById(R.id.send_package);
         fromAddress = (AutoCompleteTextView) findViewById(R.id.address_from);
-        toAddress = (AutoCompleteTextView) findViewById(R.id.address_to);
+        mAdapter = new AutoCompleteAdapter( this );
+        fromAddress.setAdapter( mAdapter );
+        toAddress = (EditText) findViewById(R.id.address_to);
         pickupDateButton = (TextView) findViewById(R.id.pickupDateButton);
         pickUpDateText = (TextView) findViewById(R.id.pickupDateText);
         deliverDateButton = (TextView) findViewById(R.id.receiveDateButton);
@@ -187,7 +247,8 @@ public class PaymentActivity extends AppCompatActivity
 
     @Override
     public void onConnected(Bundle bundle) {
-        
+        if( mAdapter != null )
+            mAdapter.setGoogleApiClient( mGoogleApiClient );
     }
 
     @Override
