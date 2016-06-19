@@ -35,6 +35,7 @@ import com.shiftbuddy.bo.Shipment;
 import com.shiftbuddy.googlePlaces.AutoCompleteAdapter;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class PaymentActivity extends AppCompatActivity
@@ -42,6 +43,16 @@ public class PaymentActivity extends AppCompatActivity
         GoogleApiClient.ConnectionCallbacks{
 
     public  static final  String TAG = PaymentActivity.class.getSimpleName();
+
+    /**
+     * Dispatch onResume() to fragments.  Note that for better inter-operation
+     * with older versions of the platform, at the point of this call the
+     * fragments attached to the activity are <em>not</em> resumed.  This means
+     * that in some cases the previous state may still be saved, not allowing
+     * fragment transactions that modify the state.  To correctly interact
+     * with fragments in their proper state, you should instead override
+     * {@link #onResumeFragments()}.
+     */
 
     LinearLayout paymentActivity;
     LinearLayout postPackage;
@@ -53,7 +64,6 @@ public class PaymentActivity extends AppCompatActivity
     TextView deliverDateText;
 
     private AutoCompleteAdapter mAdapter;
-    private int PLACE_PICKER_REQUEST = 1;
 
     boolean pickupOn = false;
     boolean deliverOn = false;
@@ -62,17 +72,41 @@ public class PaymentActivity extends AppCompatActivity
     HttpCalls httpCalls = new HttpCalls();
     private GoogleApiClient mGoogleApiClient;
 
+    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+    Calendar c = Calendar.getInstance();
+    String currentDate = dateFormat.format(c.getTime());
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Bundle bundle = this.getIntent().getExtras();
         shipment = (Shipment)bundle.get(Constants.SHIPMENT_INTENT);
-        Log.d(TAG,shipment.getDescription());
+        Log.d(TAG, shipment.getDescription());
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
         buildGooglePlacesAPIClient();
         init();
         initListeners();
+        //updateAddress();
+    }
+
+    @Override
+    protected void onResume() {
+        updateAddress();
+        super.onResume();
+    }
+
+    private void updateAddress() {
+        if(shipment!=null) {
+            if(null!=shipment.getSenderAddress()/*|| !shipment.getSenderAddress().equals("")*/) {
+                fromAddress.setText(shipment.getSenderAddress());
+            }
+
+            if(null!=shipment.getReceiverAddress() /*|| !shipment.getReceiverAddress().equals("")*/) {
+                toAddress.setText(shipment.getReceiverAddress());
+            }
+        }
+
     }
 
     @Override
@@ -99,17 +133,30 @@ public class PaymentActivity extends AppCompatActivity
         fromAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(PaymentActivity.this, LocationActivity.class);
-                startActivity(myIntent);
+                if(Manager.verifyDate(pickUpDateText.getText().toString(), deliverDateText.getText().toString())) {
+                    Intent myIntent = new Intent(PaymentActivity.this, LocationActivity.class);
+                    myIntent.putExtra(Constants.SHIPMENT_INTENT,shipment);
+                    myIntent.putExtra(Constants.FROM_ADDRESS,true);
+                    startActivity(myIntent);
+                } else {
+                    Manager.openAuthenticationSnackbar("Please enter valid date.", paymentActivity);
+                }
             }
         });
-        /*fromAddress.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        toAddress.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                AutoCompletePlace place = (AutoCompletePlace) parent.getItemAtPosition( position );
-                findPlaceById( place.getId() );
+            public void onClick(View view) {
+                if(Manager.verifyDate(pickUpDateText.getText().toString(), deliverDateText.getText().toString())) {
+                    Intent myIntent = new Intent(PaymentActivity.this, LocationActivity.class);
+                    myIntent.putExtra(Constants.SHIPMENT_INTENT,shipment);
+                    myIntent.putExtra(Constants.TO_ADDRESS,true);
+                    startActivity(myIntent);
+                } else {
+                    Manager.openAuthenticationSnackbar("Please enter valid date.", paymentActivity);
+                }
             }
-        });*/
+        });
 
         pickupDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -218,8 +265,10 @@ public class PaymentActivity extends AppCompatActivity
         toAddress = (EditText) findViewById(R.id.address_to);
         pickupDateButton = (TextView) findViewById(R.id.pickupDateButton);
         pickUpDateText = (TextView) findViewById(R.id.pickupDateText);
+        pickUpDateText.setText(currentDate);//initialize with current date
         deliverDateButton = (TextView) findViewById(R.id.receiveDateButton);
         deliverDateText = (TextView) findViewById(R.id.receiveDateText);
+        deliverDateText.setText(currentDate);//initialize with current date
 
     }
 

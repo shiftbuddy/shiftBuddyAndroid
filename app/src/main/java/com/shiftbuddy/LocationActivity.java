@@ -1,22 +1,19 @@
 package com.shiftbuddy;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -26,6 +23,8 @@ import com.google.android.gms.location.places.PlaceLikelihood;
 import com.google.android.gms.location.places.PlaceLikelihoodBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.shiftbuddy.Manager.Constants;
+import com.shiftbuddy.bo.Shipment;
 import com.shiftbuddy.googlePlaces.AutoCompleteAdapter;
 import com.shiftbuddy.googlePlaces.AutoCompletePlace;
 
@@ -37,18 +36,44 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
     private int PLACE_PICKER_REQUEST = 1;
     private AutoCompleteAdapter mAdapter;
 
+    private LinearLayout locationTransferButton;
     private TextView mTextView;
     private AutoCompleteTextView mPredictTextView;
 
+    Shipment shipment = new Shipment();
+    boolean fromAddress = false;
+    boolean toAddress = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Bundle bundle = this.getIntent().getExtras();
+        shipment = (Shipment)bundle.get(Constants.SHIPMENT_INTENT);
+        if(bundle.getBoolean(Constants.FROM_ADDRESS)) {
+            fromAddress = true;
+        } else if (bundle.getBoolean(Constants.TO_ADDRESS)) {
+            toAddress = true;
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
-        mTextView = (TextView) findViewById(R.id.textview);
 
+
+        init();
+        initListeners();
+        buildAPIClient();
+
+    }
+
+    private void init() {
+
+        mTextView = (TextView) findViewById(R.id.textview);
+        locationTransferButton = (LinearLayout) findViewById(R.id.locationTransferButton);
         mPredictTextView = (AutoCompleteTextView) findViewById(R.id.predicttextview);
         mAdapter = new AutoCompleteAdapter(this);
         mPredictTextView.setAdapter(mAdapter);
+
+    }
+
+    private void initListeners() {
 
         mPredictTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -58,6 +83,34 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
             }
         });
 
+        locationTransferButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(fromAddress) {
+                    /*if(mTextView.equals(getResources().getString(R.string.default_place_text))) {
+                        shipment.setSenderAddress(mPredictTextView.getText().toString());
+                    } else {*/
+                        shipment.setSenderAddress(mTextView.getText().toString());
+                    //}
+                    Intent myIntent = new Intent(LocationActivity.this, PaymentActivity.class);
+                    myIntent.putExtra(Constants.SHIPMENT_INTENT,shipment);
+                    startActivity(myIntent);
+                } else if (toAddress) {
+                    /*if(mTextView.equals(getResources().getString(R.string.default_place_text))) {
+                        shipment.setReceiverAddress(mPredictTextView.getText().toString());
+                    } else {*/
+                        shipment.setReceiverAddress(mTextView.getText().toString());
+                    //}
+                    Intent myIntent = new Intent(LocationActivity.this, PaymentActivity.class);
+                    myIntent.putExtra(Constants.SHIPMENT_INTENT,shipment);
+                    startActivity(myIntent);
+                }
+            }
+        });
+    }
+
+    private void buildAPIClient() {
+
         mGoogleApiClient = new GoogleApiClient
                 .Builder(this)
                 .enableAutoManage(this, 0, this)
@@ -66,6 +119,7 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
+
     }
 
     @Override
@@ -135,7 +189,7 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
         });
     }
 
-    private void displayPlacePicker() {
+    /*private void displayPlacePicker() {
         if( mGoogleApiClient == null || !mGoogleApiClient.isConnected() )
             return;
 
@@ -148,7 +202,7 @@ public class LocationActivity extends AppCompatActivity implements GoogleApiClie
         } catch ( GooglePlayServicesNotAvailableException e ) {
             Log.d( "PlacesAPI Demo", "GooglePlayServicesNotAvailableException thrown" );
         }
-    }
+    }*/
 
     protected void onActivityResult( int requestCode, int resultCode, Intent data ) {
         if( requestCode == PLACE_PICKER_REQUEST && resultCode == RESULT_OK ) {

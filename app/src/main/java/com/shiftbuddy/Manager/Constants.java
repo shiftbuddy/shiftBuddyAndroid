@@ -23,6 +23,9 @@ public class Constants {
      * Intents
      */
     public final static String SHIPMENT_INTENT = "shipmentIntent";
+    public final static String FROM_ADDRESS = "fromAddress";
+    public final static String TO_ADDRESS = "toAddress";
+
     /**
      * PHP Links to database. Currently built with separate PHP scripts to local database
      */

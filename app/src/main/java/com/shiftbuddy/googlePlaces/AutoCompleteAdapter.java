@@ -1,13 +1,13 @@
 package com.shiftbuddy.googlePlaces;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -37,6 +37,7 @@ import java.util.concurrent.TimeUnit;
 
 public class AutoCompleteAdapter extends ArrayAdapter<AutoCompletePlace> {
 
+    private final static String TAG = AutoCompleteAdapter.class.getSimpleName();
     private GoogleApiClient mGoogleApiClient;
 
     public AutoCompleteAdapter( Context context ) {
@@ -76,16 +77,15 @@ public class AutoCompleteAdapter extends ArrayAdapter<AutoCompletePlace> {
             protected FilterResults performFiltering(CharSequence constraint) {
 
                 if( mGoogleApiClient == null || !mGoogleApiClient.isConnected() ) {
-                    Toast.makeText( getContext(), "Not connected", Toast.LENGTH_SHORT ).show();
+                    Log.d(TAG,"google client not connected");
+                    //Toast.makeText( getContext(), "Not connected", Toast.LENGTH_SHORT ).show();
                     return null;
+                } else {
+                    if(constraint!=null) {
+                        clear();
+                        displayPredictiveResults(constraint.toString());
+                    }
                 }
-
-                clear();
-
-                if(constraint!=null) {
-                    displayPredictiveResults(constraint.toString());
-                }
-
 
                 return null;
             }

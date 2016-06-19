@@ -58,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(threadInfoReceiver);
+    }
+
     private void setFilters() {
         IntentFilter filter = new IntentFilter();
         filter.addAction(Constants.BROADCAST_LOGIN_JSON);
@@ -150,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            //manager.stopLoginThread();
+            httpCalls.stopLoginThread();
             if (intent.getAction().equals(Constants.BROADCAST_LOGIN_JSON)) {
                 try {
                     Bundle bundle = intent.getExtras();

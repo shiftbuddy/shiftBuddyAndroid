@@ -47,6 +47,10 @@ public class HttpCalls {
         loginThread.start();
     }
 
+    public void stopLoginThread() {
+        loginThread = new Thread();
+    }
+
     public void updateShipmentInDatabase(Shipment shipment,Context context) {
 
         this.ctx = context;

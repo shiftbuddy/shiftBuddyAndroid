@@ -27,7 +27,7 @@
         android:layout_height="wrap_content" />
 
     <LinearLayout
-        android:id="@+id/locationTransfer"
+        android:id="@+id/locationTransferButton"
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_marginTop="5dp"
@@ -35,7 +35,7 @@
         android:layout_height="50dp">
 
         <TextView
-            android:id="@+id/location"
+            android:id="@+id/locationButton"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:textColor="@color/white"

@@ -69,7 +69,12 @@ public class Manager {
     }
 
     public static boolean verifyAddress(String fromAddress, String toAddress) {
-        return false;
+        if(!fromAddress.equals("") && !toAddress.equals("")) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 }
 
