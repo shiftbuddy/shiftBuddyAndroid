@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:id="@+id/payment_activity_layout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@drawable/wallpaper_thumb_01"
-    tools:context="com.shiftbuddy.PaymentActivity">
+    tools:context="com.shiftbuddy.MoverDatesActivity">
 
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -25,7 +23,7 @@
                 android:id="@+id/box_for_strip"
                 android:layout_width="50dp"
                 android:layout_height="30dp"
-                android:src="@drawable/packer"/>
+                android:src="@drawable/mover"/>
 
             <TextView
                 android:id="@+id/shipment"
@@ -34,7 +32,7 @@
                 android:textSize="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:text="Shipper"
+                android:text="Mover"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/box_for_strip"
                 android:layout_toEndOf="@+id/box_for_strip" />
@@ -121,6 +119,7 @@
                     android:id="@+id/address_from"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:gravity="center"
                     android:hint="From Address"
                     android:textColor="@android:color/white"
                     android:layout_marginLeft="10dp"
@@ -143,6 +142,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="To Address"
+                    android:gravity="center"
                     android:textColor="@android:color/white"
                     android:layout_marginLeft="10dp"
                     android:background="@android:color/transparent"/>
@@ -229,36 +229,11 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/payment_gateway"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp"
-                android:layout_below="@+id/dates">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:textAlignment="gravity"
-                    android:gravity="center_vertical"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="15dp"
-                    android:text="Secure payment Gateway"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/white"/>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:src="@drawable/paypal"/>
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/send_package"
                 android:layout_marginTop="15dp"
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
-                android:layout_below="@+id/payment_gateway"
+                android:layout_below="@+id/dates"
                 android:orientation="horizontal"
                 android:background="@drawable/button_selector">
 
@@ -271,7 +246,7 @@
                     android:gravity="center"
                     android:layout_weight="0.1"
                     android:textSize="15dp"
-                    android:text="Post Package"
+                    android:text="Register Vehicle"
                     android:textStyle="bold"
                     android:textColor="@android:color/white"/>
             </LinearLayout>
@@ -279,6 +254,5 @@
         </RelativeLayout>
 
     </ScrollView>
-
 
 </LinearLayout>

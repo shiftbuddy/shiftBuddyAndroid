@@ -18,8 +18,8 @@ import android.util.Log;
 import com.shiftbuddy.bo.MoverVehicle;
 import com.shiftbuddy.bo.Shipment;
 
-import java.io.IOException;
 import java.net.ConnectException;
+import java.net.SocketTimeoutException;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -39,7 +39,7 @@ public class HttpCalls {
     Shipment shipment = new Shipment();
     MoverVehicle moverVehicle = new MoverVehicle();
 
-    public void login(String u_name,String p_word,Context context) throws IOException {
+    public void login(String u_name,String p_word,Context context) throws Exception {
 
         this.u_name = u_name;
         this.p_word = p_word;
@@ -48,6 +48,7 @@ public class HttpCalls {
     }
 
     public void stopLoginThread() {
+        //loginThread.stop();
         loginThread = new Thread();
     }
 
@@ -99,8 +100,20 @@ public class HttpCalls {
                 } else {
                     Log.d(TAG,"Issue with response: "+response.code());
                 }
+            } catch (IllegalThreadStateException ie) {
+                ie.printStackTrace();
+                Intent loginIntent = new Intent(Constants.BROADCAST_LOGIN_JSON);
+                loginIntent.putExtra(Constants.CREDENTIALS_FOR_USER, Constants.INERNET_ERROR);
+                ctx.sendBroadcast(loginIntent);
+                loginThread = new Thread();
             } catch (ConnectException ce) {
                 ce.printStackTrace();
+                Intent loginIntent = new Intent(Constants.BROADCAST_LOGIN_JSON);
+                loginIntent.putExtra(Constants.CREDENTIALS_FOR_USER, Constants.INERNET_ERROR);
+                ctx.sendBroadcast(loginIntent);
+                loginThread = new Thread();
+            } catch (SocketTimeoutException se) {
+                se.printStackTrace();
                 Intent loginIntent = new Intent(Constants.BROADCAST_LOGIN_JSON);
                 loginIntent.putExtra(Constants.CREDENTIALS_FOR_USER, Constants.INERNET_ERROR);
                 ctx.sendBroadcast(loginIntent);
@@ -123,7 +136,7 @@ public class HttpCalls {
         public void run()
         {
             try {
-
+                //TODO : Update the shipment object into the MYSQL Database.
             } catch (Exception e) {
                 shipmentThread = new Thread();
             }
@@ -137,7 +150,7 @@ public class HttpCalls {
         public void run()
         {
             try {
-
+                //TODO : Register the user details in the database.
             } catch (Exception e) {
                 registerThread = new Thread();
             }
@@ -151,7 +164,7 @@ public class HttpCalls {
         public void run()
         {
             try {
-
+                //TODO : Register the mover details in the database.
             } catch (Exception e) {
                 moverThread = new Thread();
             }

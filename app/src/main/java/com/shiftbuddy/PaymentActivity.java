@@ -14,20 +14,12 @@ package com.shiftbuddy;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.PlaceBuffer;
-import com.google.android.gms.location.places.Places;
 import com.shiftbuddy.Manager.Constants;
 import com.shiftbuddy.Manager.HttpCalls;
 import com.shiftbuddy.Manager.Manager;
@@ -39,8 +31,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class PaymentActivity extends AppCompatActivity
-        implements DatePickerDialog.OnDateSetListener, GoogleApiClient.OnConnectionFailedListener,
-        GoogleApiClient.ConnectionCallbacks{
+        implements DatePickerDialog.OnDateSetListener{
 
     public  static final  String TAG = PaymentActivity.class.getSimpleName();
 
@@ -56,8 +47,8 @@ public class PaymentActivity extends AppCompatActivity
 
     LinearLayout paymentActivity;
     LinearLayout postPackage;
-    AutoCompleteTextView fromAddress;
-    EditText toAddress;
+    TextView fromAddress;
+    TextView toAddress;
     TextView pickupDateButton;
     TextView pickUpDateText;
     TextView deliverDateButton;
@@ -84,7 +75,7 @@ public class PaymentActivity extends AppCompatActivity
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
-        buildGooglePlacesAPIClient();
+        //buildGooglePlacesAPIClient();
         init();
         initListeners();
         //updateAddress();
@@ -112,13 +103,13 @@ public class PaymentActivity extends AppCompatActivity
     @Override
     protected void onStop() {
 
-        if( mGoogleApiClient != null && mGoogleApiClient.isConnected() ) {
+        /*if( mGoogleApiClient != null && mGoogleApiClient.isConnected() ) {
             mGoogleApiClient.disconnect();
-        }
+        }*/
         super.onStop();
     }
 
-    private void buildGooglePlacesAPIClient() {
+   /* private void buildGooglePlacesAPIClient() {
 
         mGoogleApiClient = new GoogleApiClient
                 .Builder(this)
@@ -126,7 +117,7 @@ public class PaymentActivity extends AppCompatActivity
                 .addApi(Places.PLACE_DETECTION_API)
                 .enableAutoManage(this,this)
                 .build();
-    }
+    }*/
 
     private void initListeners() {
 
@@ -219,7 +210,7 @@ public class PaymentActivity extends AppCompatActivity
         });
     }
 
-    private void findPlaceById(String id) {
+    /*private void findPlaceById(String id) {
 
         if( TextUtils.isEmpty(id) || mGoogleApiClient == null || !mGoogleApiClient.isConnected() )
             return;
@@ -238,9 +229,9 @@ public class PaymentActivity extends AppCompatActivity
                 places.release();
             }
         });
-    }
+    }*/
 
-    private void displayPlace(Place place) {
+    /*private void displayPlace(Place place) {
 
         String content = "";
         if( !TextUtils.isEmpty( place.getName() ) ) {
@@ -254,15 +245,15 @@ public class PaymentActivity extends AppCompatActivity
         }
 
         toAddress.setText( content );
-    }
+    }*/
 
     private void init() {
         paymentActivity = (LinearLayout) findViewById(R.id.payment_activity_layout);
         postPackage = (LinearLayout) findViewById(R.id.send_package);
-        fromAddress = (AutoCompleteTextView) findViewById(R.id.address_from);
-        mAdapter = new AutoCompleteAdapter( this );
-        fromAddress.setAdapter( mAdapter );
-        toAddress = (EditText) findViewById(R.id.address_to);
+        fromAddress = (TextView) findViewById(R.id.address_from);
+        //mAdapter = new AutoCompleteAdapter( this );
+       // fromAddress.setAdapter( mAdapter );
+        toAddress = (TextView) findViewById(R.id.address_to);
         pickupDateButton = (TextView) findViewById(R.id.pickupDateButton);
         pickUpDateText = (TextView) findViewById(R.id.pickupDateText);
         pickUpDateText.setText(currentDate);//initialize with current date
@@ -289,7 +280,7 @@ public class PaymentActivity extends AppCompatActivity
 
     }
 
-    @Override
+    /*@Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
         Manager.openAuthenticationSnackbar("Problem in internet connection.",paymentActivity);
     }
@@ -303,7 +294,7 @@ public class PaymentActivity extends AppCompatActivity
     @Override
     public void onConnectionSuspended(int i) {
 
-    }
+    }*/
 }
 
 /*    private void openAddressEnterSnackBar() {

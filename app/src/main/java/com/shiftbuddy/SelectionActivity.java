@@ -88,7 +88,7 @@ public class SelectionActivity extends AppCompatActivity {
         moverLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(SelectionActivity.this, ShipmentActivity.class);
+                Intent myIntent = new Intent(SelectionActivity.this, MoverActivity.class);
                 startActivity(myIntent);
             }
         });

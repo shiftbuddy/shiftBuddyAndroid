@@ -32,8 +32,6 @@ import com.shiftbuddy.Manager.BlurBuilder;
 import com.shiftbuddy.Manager.Constants;
 import com.shiftbuddy.Manager.HttpCalls;
 
-import java.io.IOException;
-
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
@@ -92,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //navigateScreen.setTextColor(Color.WHITE);
+        setFilters();
     }
 
     private void initListeners() {
@@ -106,7 +104,13 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             httpCalls.login(userName.getText().toString(), password.getText().toString(),
                                     getApplicationContext());
-                        } catch (IOException e) {
+                        } /*catch (IllegalThreadStateException ie) {
+                            ie.printStackTrace();
+                            httpCalls.stopLoginThread();
+                            openAuthenticationSnackbar(Constants.INERNET_ERROR);
+                        }*/  catch (Exception e) {
+                            httpCalls.stopLoginThread();
+                            openAuthenticationSnackbar(Constants.INERNET_ERROR);
                             e.printStackTrace();
                         }
                     } else {

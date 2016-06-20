@@ -45,6 +45,10 @@
             android:label="@string/title_activity_location"
             android:theme="@style/AppTheme" >
         </activity>
+        <activity android:name=".MoverActivity" >
+        </activity>
+        <activity android:name=".MoverDatesActivity" >
+        </activity>
     </application>
 
 </manifest>

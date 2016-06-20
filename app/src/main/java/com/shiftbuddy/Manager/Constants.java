@@ -29,8 +29,10 @@ public class Constants {
     /**
      * PHP Links to database. Currently built with separate PHP scripts to local database
      */
-    public static final String CONNECT = "http://192.168.0.73/connection.php";
-    public static final String LOGIN = "http://192.168.0.73/register.php";
+    public static final String IP_ADDRESS = "130.83.114.173"; //eduroam
+                                            //"192.168.0.73" //Dieburg room
+    public static final String CONNECT = "http://"+IP_ADDRESS+"/connection.php";
+    public static final String LOGIN = "http://"+IP_ADDRESS+"/register.php";
 
     /**
      * BROADCAST IDENTITIES

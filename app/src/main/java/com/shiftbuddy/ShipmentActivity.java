@@ -14,7 +14,6 @@ package com.shiftbuddy;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -51,6 +50,7 @@ public class ShipmentActivity extends AppCompatActivity {
     ImageView ivPreview;
     EditText description;
     boolean pictureLoaded = false;
+    Bitmap bMapScaled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,9 +100,10 @@ public class ShipmentActivity extends AppCompatActivity {
                     Intent shipmentIntent = new Intent(ShipmentActivity.this, PaymentActivity.class);
                     // Update Business object
                     if(pictureLoaded) {
+                        //TODO : Pass image Uri and not actual image.
+                        //Fix found on http://stackoverflow.com/questions/33238661/trying-to-share-image-to-facebook-using-intent-crashes-application
                         Shipment shipment = new Shipment(length.getValue(),height.getValue(),width.getValue(),
-                                description.getText().toString(),
-                                ((BitmapDrawable)ivPreview.getDrawable()).getBitmap());
+                                description.getText().toString(), bMapScaled);
                         shipmentIntent.putExtra(Constants.SHIPMENT_INTENT, shipment);
                     } else {
                         Shipment shipment = new Shipment(length.getValue(),height.getValue(),width.getValue(),
@@ -158,7 +159,7 @@ public class ShipmentActivity extends AppCompatActivity {
                 // by this point we have the camera photo on disk
                 Bitmap takenImage = BitmapFactory.decodeFile(takenPhotoUri.getPath());
                 //scale bitmap
-                Bitmap bMapScaled = Bitmap.createScaledBitmap(takenImage, 600, 600, true);
+                bMapScaled = Bitmap.createScaledBitmap(takenImage, 600, 600, true);
                 // Load the taken image into a preview
                 ImageView ivPreview = (ImageView) findViewById(R.id.picture);
                 if(bMapScaled!=null) {

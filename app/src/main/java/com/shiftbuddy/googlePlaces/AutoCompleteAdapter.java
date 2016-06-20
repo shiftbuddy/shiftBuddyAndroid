@@ -82,7 +82,8 @@ public class AutoCompleteAdapter extends ArrayAdapter<AutoCompletePlace> {
                     return null;
                 } else {
                     if(constraint!=null) {
-                        clear();
+                        if(!constraint.toString().equals(""))
+                            clear();
                         displayPredictiveResults(constraint.toString());
                     }
                 }
